@@ -1,0 +1,68 @@
+KNOWLEDGEBRIDGE — STEP 1: BRAND ASSET CHECKING
+
+WHAT THIS PACKAGE CHANGES
+- Replaces app.py with a complete version that preserves the existing text checks,
+  approved-fact checks, human review, highlighting, dashboard and report downloads.
+- Adds utils/asset_checker.py for basic normalized pixel comparison.
+- Adds two synthetic demo images in assets/.
+- Adds Pillow to requirements.txt.
+- Adds a small automated test for exact-match and modified-image cases.
+
+IMPORTANT
+The demo logo images are synthetic examples only. They are not an official logo,
+not an approved asset from a real company, and not evidence of brand ownership.
+The comparison is pixel-based. It is not semantic image recognition, trademark
+verification or proof of authenticity. A human reviewer makes the final decision.
+
+INSTALLATION ON WINDOWS
+1. Stop the currently running Streamlit app by clicking its PowerShell window and
+   pressing Ctrl+C once.
+2. Open this project folder in File Explorer:
+   C:\Users\rituj\OneDrive\Desktop\KnowledgeBridge
+3. Make a backup of the current app.py before replacing it. Copy app.py and rename
+   the copy to app_backup_before_asset_check.py.
+4. Extract this ZIP directly into the KnowledgeBridge project folder. Allow the
+   new app.py and requirements.txt to replace the old files. The new utils and
+   assets folders/files should be added to the existing project folders.
+5. Confirm that the project contains:
+   app.py
+   requirements.txt
+   utils\brand_checker.py       (existing file — keep it)
+   utils\asset_checker.py       (new file)
+   utils\__init__.py            (new file)
+   assets\demo_approved_logo.png
+   assets\demo_modified_logo.png
+   tests\test_asset_checker.py
+6. Open PowerShell in the project folder and activate the existing environment:
+   .venv\Scripts\Activate.ps1
+7. Install/refresh dependencies:
+   python -m pip install -r requirements.txt
+8. Run the asset-checker tests:
+   python -m unittest discover -s tests -v
+   Expected: 2 tests pass.
+9. Start KnowledgeBridge:
+   python -m streamlit run app.py
+
+HOW TO TEST THE FEATURE IN THE APP
+1. Open the Content Checker page.
+2. Paste this sample content:
+   This is a KnowledgeBridge demo review. Our warranty is 2 years.
+   Terms and conditions apply.
+3. Paste these guidelines:
+   Required: Terms and conditions apply
+   Fact: warranty = 2 years
+4. Under Approved Brand Asset Review, leave "Use included demo assets" selected.
+5. Select "Modified sample (expected to be flagged)".
+6. Click Run Brand Check.
+   Expected: the asset comparison shows a pixel similarity below 95%, and a
+   "Brand Asset Mismatch" finding appears with Pending human-review status.
+7. Change the demo case to "Identical sample (expected to pass)" and click
+   Run Brand Check again.
+   Expected: pixel similarity is 100%, and no Brand Asset Mismatch finding appears.
+8. Test "Upload your own assets" by uploading two images. Both images must be
+   provided together; leaving both empty skips asset comparison for that run.
+9. Confirm or dismiss the mismatch finding. Download the TXT and CSV reports.
+   The TXT report and CSV summary row should include the asset comparison result.
+
+Do not upload this project to GitHub yet. Complete the remaining integration and
+end-to-end tests before publishing the repository.
