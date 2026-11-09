@@ -1,0 +1,2 @@
+Prohibited: guaranteed
+Required: Terms and conditions apply
